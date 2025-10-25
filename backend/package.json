@@ -13,11 +13,13 @@
   "type": "module",
   "dependencies": {
     "@clerk/express": "^1.7.42",
+    "@sentry/node": "^10.22.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "inngest": "^3.44.3",
-    "mongoose": "^8.19.2"
+    "mongoose": "^8.19.2",
+    "stream-chat": "^9.25.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.10"
