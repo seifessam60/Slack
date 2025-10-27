@@ -1,9 +1,9 @@
 import { useUser } from "@clerk/clerk-react";
 import { useQuery } from "@tanstack/react-query";
 import { getStreamToken } from "../lib/api";
-import { useEffect } from "react";
-import { StreamChat } from "stream-chat";
+import { useEffect, useState } from "react";
 import * as Sentry from "@sentry/react";
+import { StreamChat } from "stream-chat";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 export const useStreamChat = () => {
@@ -12,14 +12,18 @@ export const useStreamChat = () => {
 
   const {
     data: tokenData,
-    isLoading: tokenLoading,
-    error: tokenError,
+    isLoading,
+    error,
   } = useQuery({
     queryKey: ["streamToken"],
     queryFn: getStreamToken,
     enabled: !!user?.id,
   });
   useEffect(() => {
+    if (!tokenData?.token || !user?.id || !STREAM_API_KEY) return;
+
+    const client = StreamChat.getInstance(STREAM_API_KEY);
+    let cancelled = false;
     const connect = async () => {
       try {
         await client.connectUser(
