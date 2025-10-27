@@ -7,8 +7,10 @@ import { functions, inngest } from "./config/innjest.js";
 import { serve } from "inngest/express";
 import chatRoutes from "./routes/chatRoutes.js";
 import * as Sentry from "@sentry/node";
+import cors from "cors";
 
 const app = express();
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
 app.use(clerkMiddleware());
 
