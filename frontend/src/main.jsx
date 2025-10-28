@@ -19,7 +19,7 @@ if (!PUBLISHABLE_KEY) {
 }
 
 Sentry.init({
-  dsn: "https://6aaac15d7b73a1793f27c1168b79e5cc@o4508422457786368.ingest.de.sentry.io/4510251758911568",
+  dsn: import.meta.env.VITE_SENTRY_DSN,
   // Setting this option to true will send default PII data to Sentry.
   // For example, automatic IP address collection on events
   sendDefaultPii: true
